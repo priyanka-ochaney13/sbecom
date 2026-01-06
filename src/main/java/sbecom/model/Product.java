@@ -29,7 +29,7 @@ public class Product {
     private boolean productAvailable;
     private String imageName;
     private String imageType;
-
+    private String category;
     @Lob // Specifies that the field should be treated as a Large Object, suitable for storing large binary data
     private byte[] imageData;
 

@@ -1,12 +1,14 @@
 package sbecom.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import sbecom.model.Product;
 import sbecom.repo.ProductRepo;
 
+@Service
 public class ProductService {
     
     @Autowired
@@ -28,7 +30,7 @@ public class ProductService {
         return productRepo.search(keyword);
     }
 
-    public Product saveOrUpProduct(Product product, MultipartFile file) throws Exception {
+    public Product saveOrUpdateProduct(Product product, MultipartFile file) throws Exception {
         if (file != null && !file.isEmpty()) {
             product.setImageName(file.getOriginalFilename());
             product.setImageType(file.getContentType());
