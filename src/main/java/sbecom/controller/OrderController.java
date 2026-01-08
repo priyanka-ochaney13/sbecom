@@ -2,7 +2,6 @@ package sbecom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import sbecom.model.dto.OrderRequest;
 import sbecom.model.dto.OrderResponse;
 import sbecom.service.OrderService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -25,9 +25,9 @@ public class OrderController {
         return new ResponseEntity<>(orderResponse, HttpStatus.CREATED);
     }
 
-    // @GetMapping("/orders")
-    // public ResponseEntity<OrderResponse> getAllOrders() {
-    //     OrderResponse orderResponse = orderService.getAllOrders();
-    //     return new ResponseEntity<>(orderResponse, HttpStatus.OK);
-    // }
+    @GetMapping("/orders")
+    public ResponseEntity<List<OrderResponse>> getAllOrders() {
+        List<OrderResponse> orderResponseList = orderService.getAllOrders();
+        return new ResponseEntity<>(orderResponseList, HttpStatus.OK);
+    }
 }

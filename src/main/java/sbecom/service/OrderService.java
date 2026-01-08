@@ -9,6 +9,8 @@ import sbecom.model.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import sbecom.model.dto.OrderResponse;
 import sbecom.model.dto.OrderItemRequest;
 import sbecom.model.dto.OrderItemResponse;
@@ -80,5 +82,41 @@ public class OrderService {
             itemResponses
         );
         return orderResponse;
+    }
+
+    @Transactional
+    public List<OrderResponse> getAllOrders() {
+        List<Order> orders = orderRepo.findAll();
+
+        List<OrderResponse> orderResponses = new ArrayList<>();
+
+        for(Order order: orders) {
+
+            List<OrderItemResponse> itemResponses = new ArrayList<>();
+
+            for (OrderItem orderItem: order.getItems()) {
+                OrderItemResponse itemResponse = new OrderItemResponse(
+                    orderItem.getProduct().getName(),
+                    orderItem.getQuantity(),
+                    orderItem.getTotalPrice()
+                );
+                itemResponses.add(itemResponse);
+            }
+
+            OrderResponse orderResponse = new OrderResponse(
+                order.getOrderId(),
+                order.getCustomerName(),
+                order.getEmail(),
+                order.getStatus(),
+                order.getOrderDate(),
+                itemResponses
+            );
+
+        orderResponses.add(orderResponse);
+            
+        }
+
+        return orderResponses;
+
     }
 }
