@@ -23,7 +23,7 @@ public class Product {
     private String name;
     private String description;
     private String brand;
-    private BigDecimal price; // Using BigDecimal for monetary values to avoid floating-point precision issues
+    private int price; // Changed from BigDecimal to int for simplicity in this example
     private int stockQuantity;
     private Date releaseDate;
     private boolean productAvailable;
